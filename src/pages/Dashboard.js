@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import { ListCategories, NavbarComponent, Result, Items } from "../components";
+import { ListCategories, Result, Items } from "../components";
 import { Row, Col, Container, Spinner } from "react-bootstrap";
-import {Switch, Route, Redirect} from 'react-router-dom'
 import { API_URL } from "../utils/constants";
 import axios from "axios";
-import { getValue } from "@testing-library/user-event/dist/utils";
 import swal from "sweetalert";
-
-//pages
-import Login from "../pages/Login";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -35,9 +30,9 @@ export default class Dashboard extends Component {
   }
 
   addCart = (value) => {
-    console.log('value', value)
+    // console.log('value', value)
     const priceAccount = value.prices.map((item, idx) => item)
-    console.log('priceAccount', priceAccount)
+    // console.log('priceAccount', priceAccount)
 
     const cart = {
       id: value.id,
@@ -67,7 +62,7 @@ export default class Dashboard extends Component {
 
   render() {
     const { items, isLoading } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     return (
         <div className="mt-3">
           <Container fluid>

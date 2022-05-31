@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 
-export default class ListCategories extends Component {
-	render() {
+function ListCategories () {
+	const dataLocalStorage = localStorage.getItem("dataUser");
+    const data = JSON.parse(dataLocalStorage);
+    // console.log('List Categories');
+	// console.log('data', data)
 		return (
 			<Col md={2} mt="2">
 				<h4>
@@ -11,5 +14,7 @@ export default class ListCategories extends Component {
 				<hr />
 			</Col>
 		);
-	}
 }
+
+export default ListCategories;
+

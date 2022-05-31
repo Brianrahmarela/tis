@@ -3,24 +3,24 @@ import { Form, Button, Container, Row, Card } from "react-bootstrap";
 import axios from "axios";
 
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../utils/constants";
 
 function Login(props) {
     // console.log('props', props)
-  const history = useHistory();
-  const [dataUser, setdataUser] = useState({
+    let navigate = useNavigate();
+    const [dataUser, setdataUser] = useState({
     id: 1,
     username: "",
     password: "",
     type: "",
   });
-  console.log("state dataUser", dataUser);
+  // console.log("state dataUser", dataUser);
 
   const handleChange = (e) => {
-    console.log("handleChange jln");
+    // console.log("handleChange jln");
 
-    console.log(e);
+    // console.log(e);
     setdataUser((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -33,7 +33,7 @@ function Login(props) {
     }));
   };
   const handleChangePass = (e) => {
-    console.log("handleChangePass jln");
+    // console.log("handleChangePass jln");
     setdataUser((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -48,8 +48,8 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.setIsLogin(true);
-    console.log("data user submit", dataUser);
+    // props.setIsLogin(true);
+    // console.log("data user submit", dataUser);
 
     setdataUser((prevState) => ({
         ...prevState,
@@ -59,9 +59,9 @@ function Login(props) {
     axios
       .post(`${API_URL}/Buyers`, dataUser)
       .then((res) => {
-        console.log("res post", res);
-        props.setIsLogin(true)
-        history.push("/dashboard");
+        // console.log("res post", res);
+        navigate("/dashboard");
+ 
       })
       .catch((error) => {
         console.log(error);

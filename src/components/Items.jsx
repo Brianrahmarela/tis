@@ -1,9 +1,9 @@
 import React from "react";
-import { Row, Col, Container, Card, Button } from "react-bootstrap";
+import {Col, Card, } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
 const Items = ({ item, addCart }) => {
-	console.log("item", item);
-	console.log("addCart", addCart);
+	// console.log("item", item);
+	// console.log("addCart", addCart);
 	
 	return (
 		<Col>
