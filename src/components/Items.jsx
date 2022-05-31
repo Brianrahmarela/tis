@@ -1,11 +1,13 @@
 import React from "react";
 import { Row, Col, Container, Card, Button } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
-const Items = ({ item }) => {
+const Items = ({ item, addCart }) => {
 	console.log("item", item);
+	console.log("addCart", addCart);
+	
 	return (
 		<Col>
-			<Card className="shadow">
+			<Card className="shadow" onClick={() => addCart(item)}>
 				<Card.Img variant="top" src={item.image} />
 				<Card.Body>
 					<Card.Title>
