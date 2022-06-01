@@ -102,26 +102,25 @@ const Items = ({ item, addCart }) => {
                       prices.priceFor
                     )}
                   </Card.Text>
-
-                  <div className="d-flex flex-row align-items-center pr-2">
-                    <div style={{paddingRight: 10}}>
-                      {" "}
-                      <button onClick={handeQtyPlus}>
-                        <strong>+</strong>
-                      </button>
-                    </div>
-                    <div style={{paddingRight: 10}}>
-                      <h5 style={{margin: 0, padding: 0}}>{qty}</h5>
-                    </div>
-                    <div >
-                      {" "}
-                      <button onClick={handeQtyMin}>
-                        <strong>-</strong>
-                      </button>
-                    </div>
-                  </div>
                 </>
               ))}
+          <div className="d-flex flex-row align-items-center pr-2">
+            <div style={{ paddingRight: 10 }}>
+              {" "}
+              <button onClick={handeQtyPlus}>
+                <strong>+</strong>
+              </button>
+            </div>
+            <div style={{ paddingRight: 10 }}>
+              <h5 style={{ margin: 0, padding: 0 }}>{qty}</h5>
+            </div>
+            <div>
+              {" "}
+              <button onClick={handeQtyMin}>
+                <strong>-</strong>
+              </button>
+            </div>
+          </div>
         </Card.Body>
       </Card>
     </Col>
