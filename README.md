@@ -1,6 +1,6 @@
 # Installation
 
-Petunjuk penginstallan:
+PETUNJUK PENGINSTALLAN:
 
 ## 1
 
@@ -21,3 +21,11 @@ jalankan perintah `yarn backend` untuk menjalankan database server
 ### 5
 
 jalankan perintah `yarn start` untuk menjalankan react app
+
+### Login account
+
+- Di halaman root login, silahkan login menggunakan username **Budi** untuk mendapatkan akun VIP
+
+- untuk akun wholesale login menggunakan username **Dipta**
+
+- jika menggunakan username lain akan otomatis akun regular
