@@ -52,43 +52,8 @@
       ]
     }
   ],
-  "Buyers": [
-  
-  ],
-  "Transaction": [
-    {
-      "id": 1,
-      "item": {
-        "id": 1,
-        "name": "oval hat",
-        "type": "hats",
-        "image": "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "prices": [
-          {
-            "priceFor": "regular",
-            "price": 20000
-          },
-          {
-            "priceFor": "VIP",
-            "price": 15000
-          }
-        ]
-      },
-      "qty": 1,
-      "buyer": "xx",
-      "price_account": [
-        {
-          "priceFor": "regular",
-          "price": 20000
-        },
-        {
-          "priceFor": "VIP",
-          "price": 15000
-        }
-      ]
-    }
-  ],
+  "Buyers": [],
+  "Transaction": [],
   "Summary": {
     "totalTransaction": 5,
     "bestSellingItem": "square hat",

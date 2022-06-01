@@ -8,7 +8,7 @@ import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-  console.log("state is login", isLogin);
+  // console.log("state is login", isLogin);
 
   return (
     <div className="App">

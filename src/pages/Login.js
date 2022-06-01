@@ -5,11 +5,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../utils/constants";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 function Login(props) {
-	const location = useLocation();
-	console.log('location.state.', location.state)    
+	// const location = useLocation();
+	// console.log('location.state.', location.state)    
   let navigate = useNavigate();
     const [dataUser, setdataUser] = useState({
     id: 1,
