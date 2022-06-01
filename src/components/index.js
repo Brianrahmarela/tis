@@ -1,6 +1,6 @@
 import ListCategories from "./ListCategories";
 import NavbarComponent from "./NavbarComponent";
-import Result from "./Result";
+import Cart from "./Cart";
 import Items from "./Items";
 
-export { ListCategories, NavbarComponent, Result, Items };
+export { ListCategories, NavbarComponent, Cart, Items };

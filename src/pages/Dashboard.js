@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ListCategories, Result, Items } from "../components";
+import { ListCategories, Cart, Items } from "../components";
 import { Row, Col, Container, Spinner } from "react-bootstrap";
 import { API_URL } from "../utils/constants";
 import axios from "axios";
@@ -102,8 +102,8 @@ export default class Dashboard extends Component {
 						});
 					}
 					const items = res.data;
-					this.setState((prevState) => ({
-						cekTrans: [...prevState.cekTrans, items],
+					this.setState(() => ({
+						cekTrans: items,
 						isLoading: false
 					}));
 				})
@@ -119,8 +119,8 @@ export default class Dashboard extends Component {
 				.then((res) => {
 					console.log("res + qty", res);
 					const items = res.data;
-					this.setState((prevState) => ({
-						cekTrans: [...prevState.cekTrans, items],
+					this.setState(() => ({
+						cekTrans: items,
 						isLoading: false
 					}));
 				})
@@ -149,8 +149,8 @@ export default class Dashboard extends Component {
 				.then((res) => {
 					console.log("res + qty", res);
 					const items = res.data;
-					this.setState((prevState) => ({
-						cekTrans: [...prevState.cekTrans, items],
+					this.setState(() => ({
+						cekTrans: items,
 						isLoading: false
 					}));
 				})
@@ -184,8 +184,8 @@ export default class Dashboard extends Component {
 						});
 					}
 					const items = res.data;
-					this.setState((prevState) => ({
-						cekTrans: [...prevState.cekTrans, items],
+					this.setState(() => ({
+						cekTrans: items,
 						isLoading: false
 					}));
 				})
@@ -218,7 +218,7 @@ export default class Dashboard extends Component {
 								)}
 							</Row>
 						</Col>
-						<Result />
+						<Cart cekTrans={this.state.cekTrans} />
 					</Row>
 				</Container>
 			</div>
