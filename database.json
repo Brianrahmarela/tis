@@ -53,12 +53,7 @@
     }
   ],
   "Buyers": [
-    {
-      "id": 1,
-      "username": "Budi",
-      "password": "1234",
-      "type": "VIP"
-    }
+  
   ],
   "Transaction": [
     {

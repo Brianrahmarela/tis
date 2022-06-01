@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import NavbarComponent from "./components/NavbarComponent";
 
@@ -7,8 +7,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-  // const [isLogin, setIsLogin] = useState(false);
-  // console.log("state is login", isLogin);
+  const [isLogin, setIsLogin] = useState(false);
+  console.log("state is login", isLogin);
 
   return (
     <div className="App">

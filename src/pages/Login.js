@@ -5,16 +5,19 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../utils/constants";
+import { useLocation } from "react-router-dom";
 
 function Login(props) {
-    // console.log('props', props)
-    let navigate = useNavigate();
+	const location = useLocation();
+	console.log('location.state.', location.state)    
+  let navigate = useNavigate();
     const [dataUser, setdataUser] = useState({
     id: 1,
     username: "",
     password: "",
     type: "",
   });
+  // const [isLogin, setIsLogin] = useState(false)
   // console.log("state dataUser", dataUser);
 
   const handleChange = (e) => {
@@ -56,6 +59,9 @@ function Login(props) {
         id: prevState.id + 1
       }));
     localStorage.setItem("dataUser", JSON.stringify(dataUser));
+    localStorage.setItem("is Login", true);
+    // props.setIsLogin(true);
+
     axios
       .post(`${API_URL}/Buyers`, dataUser)
       .then((res) => {
