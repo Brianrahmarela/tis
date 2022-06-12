@@ -37,7 +37,7 @@ export default class Dashboard extends Component {
 		const data = JSON.parse(dataLocalStorage);
 		// console.log("data user addCart", data);
 		console.log("value", value);
-		console.log("price msk addCart", price);
+		// console.log("price msk addCart", price);
 		// console.log("price msk qty", qty);
 		// console.log("price msk setQty", setQty);
 
@@ -77,127 +77,183 @@ export default class Dashboard extends Component {
 			totalPrice: cart.price_account * cart.qty
 		};
 		console.log("cart", cart);
-		console.log("this.cekTrans", this.state.cekTrans);
-		console.log("cart qtyy", cart.qty);
+		// console.log("this.cekTrans", this.state.cekTrans);
+		// console.log("cart qtyy", cart.qty);
 
-		if (cart.qty === 1 && this.state.cekTrans.length === 0) {
-			// console.log("qty <= 1");
-			console.log("mskk qtyy", qty);
-			// console.log(
-			// 	cart.qty === 1 && this.state.cekTrans === this.state.cekTrans
-			// );
-			console.log(cart.qty === 1 && this.state.cekTrans.length === 0);
-			console.log("this.cekTrans", this.state.cekTrans);
+		// let newCart = [];
+		// console.log("newCart atas", newCart);
+		// let cartId = newCart.filter((item, index) => index === item.id);
+		// console.log("cartId", cartId);
+		// if (cart.id !== cartId) {
+		// 	console.log("id not same");
+		// }
+		// newCart.push(cart);
+		// console.log("newCart bwh", newCart);
+		console.log("this.state", this.state);
+		console.log("this.state.cart", this.state.cart);
+		console.log("cart.id", cart.id);
 
-			axios
-				.post(`${API_URL}/Transaction`, cart)
-				.then((res) => {
-					console.log("res", res);
-					if (res.status === 201) {
-						swal({
-							title: "Sukses Masuk Keranjang!",
-							text: `Produk ${cart.item.name} sukses Masuk Keranjang`,
-							icon: "success",
-							button: false
-						});
-					}
-					const items = res.data;
-					this.setState(() => ({
-						cekTrans: items,
-						isLoading: false
-					}));
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		} else if (cart.qty === 1 && this.state.cekTrans.length !== 0) {
-			console.log("MASUKKKK!!");
-			console.log(cart.qty === 1 && this.state.cekTrans.length !== 0);
-			axios
-				.put(`${API_URL}/Transaction/${cart.id}`, cart)
+		// let newCart = [];
+		// newCart.push(carStatetId);
 
-				.then((res) => {
-					console.log("res + qty", res);
-					const items = res.data;
-					this.setState(() => ({
-						cekTrans: items,
-						isLoading: false
-					}));
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-			if (cart.qty === cart.qty + 1) {
-				console.log("plus 1!");
-			}
-		} else if (qty > 1) {
-			console.log("qty > 1");
-			console.log("qtyy", qty);
-
-			cart = {
-				id: value.id,
-				item: value,
-				qty: qty,
-				buyer: data.username,
-				price_account: filterPrice ? filterPrice : filterDefaultPrice,
-				totalPrice: cart.price_account * cart.qty
-			};
-			console.log("cart patch", cart);
-			axios
-				.put(`${API_URL}/Transaction/${cart.id}`, cart)
-
-				.then((res) => {
-					console.log("res + qty", res);
-					const items = res.data;
-					this.setState(() => ({
-						cekTrans: items,
-						isLoading: false
-					}));
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		} else if (qty === 0) {
-			console.log("qty == 0");
-			console.log("qtyy", qty);
-			axios
-				.delete(`${API_URL}/Transaction/${cart.id}`)
-				.then((res) => {
-					console.log("res qty == 0", res);
-					// const items = res.data;
-					this.setState({ cekTrans: [], isLoading: false });
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		} else {
-			axios
-				.post(`${API_URL}/Transaction`, cart)
-				.then((res) => {
-					console.log("res", res);
-					if (res.status === 201) {
-						swal({
-							title: "Sukses Masuk Keranjang!",
-							text: `Produk ${cart.item.name} sukses Masuk Keranjang`,
-							icon: "success",
-							button: false
-						});
-					}
-					const items = res.data;
-					this.setState(() => ({
-						cekTrans: items,
-						isLoading: false
-					}));
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+		if (this.state.cart.length === 0) {
+			console.log("this.state.cart.length === 0", this.state.cart.length === 0);
+			console.log("msk arr kosong");
+			this.setState((prev) => ({
+				cart: [...prev.cart, cart]
+			}));
 		}
+		// else if (cart.qty >= 1) {
+		// 	console.log("msk arr >= 1", cart.qty >= 1);
+
+		// 	let found = this.state.cart.filter(
+		// 		(item, index) =>
+		// 			// console.log("item.id", item.id)
+		// 			item.id === cart.id
+		// 	);
+		// 	found = cart;
+		// 	// found.push(cart);
+		// 	console.log("item found", found);
+		// 	this.setState((prev) => ({
+		// 		cart: cart
+		// 	}));
+		// }
+		else if (this.state.cart.length >= 1) {
+			console.log("msk arr sudah terisi");
+			let carStatetId = this.state.cart.filter(
+				(item, index) =>
+					// console.log("item.id", item.id)
+					item.id !== cart.id
+			);
+			carStatetId.push(cart);
+			console.log("item carStatetId", carStatetId);
+
+			this.setState((prev) => ({
+				cart: carStatetId
+			}));
+		}
+
+		console.log("this.state.cart.qty ", this.state.cart);
+
+		// if (cart.qty === 1 && this.state.cekTrans.length === 0) {
+		// 	// console.log("qty <= 1");
+		// 	console.log("mskk qtyy", qty);
+		// 	// console.log(
+		// 	// 	cart.qty === 1 && this.state.cekTrans === this.state.cekTrans
+		// 	// );
+		// 	console.log(cart.qty === 1 && this.state.cekTrans.length === 0);
+		// 	console.log("this.cekTrans", this.state.cekTrans);
+
+		// 	axios
+		// 		.post(`${API_URL}/Transaction`, cart)
+		// 		.then((res) => {
+		// 			console.log("res", res);
+		// 			if (res.status === 201) {
+		// 				swal({
+		// 					title: "Sukses Masuk Keranjang!",
+		// 					text: `Produk ${cart.item.name} sukses Masuk Keranjang`,
+		// 					icon: "success",
+		// 					button: false
+		// 				});
+		// 			}
+		// 			const items = res.data;
+		// 			this.setState(() => ({
+		// 				cekTrans: items,
+		// 				isLoading: false
+		// 			}));
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// } else if (cart.qty === 1 && this.state.cekTrans.length !== 0) {
+		// 	console.log("MASUKKKK!!");
+		// 	console.log(cart.qty === 1 && this.state.cekTrans.length !== 0);
+		// 	axios
+		// 		.put(`${API_URL}/Transaction/${cart.id}`, cart)
+
+		// 		.then((res) => {
+		// 			console.log("res + qty", res);
+		// 			const items = res.data;
+		// 			this.setState(() => ({
+		// 				cekTrans: items,
+		// 				isLoading: false
+		// 			}));
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// 	if (cart.qty === cart.qty + 1) {
+		// 		console.log("plus 1!");
+		// 	}
+		// } else if (qty > 1) {
+		// 	console.log("qty > 1");
+		// 	console.log("qtyy", qty);
+
+		// 	cart = {
+		// 		id: value.id,
+		// 		item: value,
+		// 		qty: qty,
+		// 		buyer: data.username,
+		// 		price_account: filterPrice ? filterPrice : filterDefaultPrice,
+		// 		totalPrice: cart.price_account * cart.qty
+		// 	};
+		// 	console.log("cart patch", cart);
+		// 	axios
+		// 		.put(`${API_URL}/Transaction/${cart.id}`, cart)
+
+		// 		.then((res) => {
+		// 			console.log("res + qty", res);
+		// 			const items = res.data;
+		// 			this.setState(() => ({
+		// 				cekTrans: items,
+		// 				isLoading: false
+		// 			}));
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// } else if (qty === 0) {
+		// 	console.log("qty == 0");
+		// 	console.log("qtyy", qty);
+		// 	axios
+		// 		.delete(`${API_URL}/Transaction/${cart.id}`)
+		// 		.then((res) => {
+		// 			console.log("res qty == 0", res);
+		// 			// const items = res.data;
+		// 			this.setState({ cekTrans: [], isLoading: false });
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// } else {
+		// 	axios
+		// 		.post(`${API_URL}/Transaction`, cart)
+		// 		.then((res) => {
+		// 			console.log("res", res);
+		// 			if (res.status === 201) {
+		// 				swal({
+		// 					title: "Sukses Masuk Keranjang!",
+		// 					text: `Produk ${cart.item.name} sukses Masuk Keranjang`,
+		// 					icon: "success",
+		// 					button: false
+		// 				});
+		// 			}
+		// 			const items = res.data;
+		// 			this.setState(() => ({
+		// 				cekTrans: items,
+		// 				isLoading: false
+		// 			}));
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// }
 	};
 
 	render() {
 		const { items, isLoading } = this.state;
-		console.log("state", this.state);
+		console.log("render state cart", this.state.cart);
+		console.log("state dashboard", this.state);
 		return (
 			<div className="mt-3">
 				<Container fluid>

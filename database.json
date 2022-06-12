@@ -52,7 +52,14 @@
       ]
     }
   ],
-  "Buyers": [],
+  "Buyers": [
+    {
+      "id": 1,
+      "username": "Budi",
+      "password": "1",
+      "type": "VIP"
+    }
+  ],
   "Transaction": [],
   "Summary": {
     "totalTransaction": 5,

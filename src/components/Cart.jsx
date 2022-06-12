@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
 
 const Cart = (props) => {
-	console.log("props cart", props);
+	// console.log("props cart", props);
 	return (
 		<div className="mt-3">
 			<Container fluid>
