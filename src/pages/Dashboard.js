@@ -33,17 +33,17 @@ export default class Dashboard extends Component {
 	}
 	componentDidUpdate() {
 		console.log("komponen UPDATE JLN");
-		if (this.state.cart.length === 1 && this.state.cart[0].qty === 1) {
-			console.log(
-				"komponen did update jalan msk if!!",
-				this.state.cart.length === 1
-			);
+		// if (this.state.cart.length === 1 && this.state.cart[0].qty === 1) {
+		// 	console.log(
+		// 		"komponen did update jalan msk if!!",
+		// 		this.state.cart.length === 1
+		// 	);
 
-			this.postCart(this.state.cart[0].item.name);
-		} else {
-			console.log("komponen did update jalan msk else!!");
-			this.updateCart();
-		}
+		// 	this.postCart(this.state.cart[0].item.name);
+		// } else {
+		// 	console.log("komponen did update jalan msk else!!");
+		// 	this.updateCart();
+		// }
 	}
 
 	addCart = (value, price, qty, setQty) => {
@@ -83,7 +83,7 @@ export default class Dashboard extends Component {
 		};
 
 		cart = {
-			id: value.id,
+			noid: value.noid,
 			item: value,
 			qty: qty,
 			buyer: data.username,
@@ -99,22 +99,41 @@ export default class Dashboard extends Component {
 			// console.log("this.state.cart.length === 0", this.state.cart.length === 0);
 			// console.log("msk arr kosong");
 			this.setState((prev) => ({
-				cart: [...prev.cart, cart]
+				cart: [cart]
 			}));
 			// this.postCart();
 		} else if (this.state.cart.length >= 1) {
-			// console.log("msk arr sudah terisi");
+			console.log("msk arr sudah terisi");
 			let carStatetId = this.state.cart.filter(
 				(item, index) =>
-					// console.log("item.id", item.id)
-					item.id !== cart.id
+					// console.log("item.noid", item.noid)
+					item.noid === cart.noid
 			);
-			carStatetId.push(cart);
-			// console.log("item carStatetId", carStatetId);
+			// carStatetId.push(cart);
+			console.log("item carStatetId", carStatetId);
+			console.log("item carStatetId", carStatetId.id);
+			console.log('cart.noid', cart.noid)
 
-			this.setState((prev) => ({
-				cart: carStatetId
-			}));
+			let idSame = 0;
+			for (let x in carStatetId) {
+			idSame += carStatetId[x].noid;
+			}
+			 console.log('idsame', idSame)
+			if(idSame === cart.noid){
+				console.log('id sama!!')
+
+				this.setState((prev) => ({
+					cart: [cart]
+				}));
+			} else {
+				console.log('id TIDak sama!!')
+
+				this.setState((prev) => ({
+					cart: [...prev.cart, cart]
+				}));
+
+			}
+
 		}
 
 		// console.log("this.state.cart.qty ", this.state.cart);
@@ -240,56 +259,56 @@ export default class Dashboard extends Component {
 		let payload = [...this.state.cart];
 
 		console.log("payload", payload);
-		axios
-			.post(`${API_URL}/Transaction`, ...this.state.cart)
-			.then((res) => {
-				console.log("res", res);
-				if (res.status === 201) {
-					swal({
-						title: "Sukses Masuk Keranjang!",
-						text: `Produk ${name} sukses Masuk Keranjang`,
-						icon: "success",
-						button: false
-					});
-				}
-				const items = res.data;
-				this.setState(() => ({
-					cekTrans: items,
-					isLoading: false
-				}));
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		// axios
+		// 	.post(`${API_URL}/Transaction`, ...this.state.cart)
+		// 	.then((res) => {
+		// 		console.log("res", res);
+		// 		if (res.status === 201) {
+		// 			swal({
+		// 				title: "Sukses Masuk Keranjang!",
+		// 				text: `Produk ${name} sukses Masuk Keranjang`,
+		// 				icon: "success",
+		// 				button: false
+		// 			});
+		// 		}
+		// 		const items = res.data;
+		// 		this.setState(() => ({
+		// 			cekTrans: items,
+		// 			isLoading: false
+		// 		}));
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	});
 	};
 
 	updateCart = () => {
 		console.log("msk updateCart, state idnya:", this.state.cart);
 		console.log(" state idnya:", this.state);
 		console.log("state cek trans res", this.state.cekTrans);
-		if (this.state.cart.length === 0) {
-			console.log("kosong");
-		} else {
-			let checkId = this.state.cart.find(
-				(item) => item.id === this.state.cekTrans.id
-			);
-			let id = checkId.id;
-			console.log("id", id);
-			console.log("checkid", checkId);
-			axios
-				.put(`${API_URL}/Transaction/${id}`, checkId)
-				.then((res) => {
-					console.log("res update", res);
-					// const items = res.data;
-					// this.setState(() => ({
-					// 	cekTrans: items,
-					// 	isLoading: false
-					// }));
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+		// if (this.state.cart.length === 0) {
+		// 	console.log("kosong");
+		// } else {
+		// 	let checkId = this.state.cart.find(
+		// 		(item) => item.id === this.state.cekTrans.id
+		// 	);
+		// 	let id = checkId.id;
+		// 	console.log("id", id);
+		// 	console.log("checkid", checkId);
+		// 	axios
+		// 		.put(`${API_URL}/Transaction/${id}`, checkId)
+		// 		.then((res) => {
+		// 			console.log("res update", res);
+		// 			// const items = res.data;
+		// 			// this.setState(() => ({
+		// 			// 	cekTrans: items,
+		// 			// 	isLoading: false
+		// 			// }));
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// }
 
 		// let id = 0;
 		// checkId.forEach((element) => {

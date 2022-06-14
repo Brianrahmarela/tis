@@ -1,10 +1,10 @@
 {
   "Items": [
     {
-      "id": 1,
+      "noid": 1,
       "name": "oval hat",
       "type": "hats",
-      "image": "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
+      "image": "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?ixlib=rb-1.2.1&ixnoid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "prices": [
         {
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "id": 2,
+      "noid": 2,
       "name": "square hat",
       "type": "hats",
       "image": "https://img.ltwebstatic.com/images3_pi/2021/05/14/16209738544cf254cfc044757d9573373c290875a4.webp",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "id": 3,
+      "noid": 3,
       "name": "magic shirt",
       "type": "tops",
       "image": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1588&q=80",
@@ -56,35 +56,12 @@
     {
       "id": 1,
       "username": "Budi",
-      "password": "2",
+      "password": "123",
       "type": "VIP"
     }
   ],
   "Transaction": [
-    {
-      "id": 1,
-      "item": {
-        "id": 1,
-        "name": "oval hat",
-        "type": "hats",
-        "image": "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "prices": [
-          {
-            "priceFor": "regular",
-            "price": 20000
-          },
-          {
-            "priceFor": "VIP",
-            "price": 15000
-          }
-        ]
-      },
-      "qty": 1,
-      "buyer": "Budi",
-      "price_account": 15000,
-      "totalPrice": 15000
-    }
+   
   ],
   "Summary": {
     "totalTransaction": 5,
