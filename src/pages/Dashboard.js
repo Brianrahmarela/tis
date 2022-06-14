@@ -102,7 +102,7 @@ export default class Dashboard extends Component {
 				cart: [cart]
 			}));
 			// this.postCart();
-		} else if (this.state.cart.length >= 1) {
+		} else if (this.state.cart.length === 1) {
 			console.log("msk arr sudah terisi");
 			let carStatetId = this.state.cart.filter(
 				(item, index) =>
@@ -127,6 +127,39 @@ export default class Dashboard extends Component {
 				}));
 			} else {
 				console.log('id TIDak sama!!')
+
+				this.setState((prev) => ({
+					cart: [...prev.cart, cart]
+				}));
+
+			}
+
+		} else if (this.state.cart.length > 1) {
+			console.log("msk length > 1");
+			let carStatetId = this.state.cart.filter(
+				(item, index) =>
+					// console.log("item.noid", item.noid)
+					item.noid === cart.noid
+			);
+			// carStatetId.push(cart);
+			console.log("item carStatetId", carStatetId);
+			console.log("item carStatetId", carStatetId.id);
+			console.log('cart.noid', cart.noid)
+
+			let idSame = 0;
+			for (let x in carStatetId) {
+			idSame += carStatetId[x].noid;
+			}
+			 console.log('idsame', idSame)
+			if(idSame === cart.noid){
+				console.log('else 2 id sama!!')
+				carStatetId = cart
+
+				this.setState((prev) => ({
+					cart: [...prev.cart, carStatetId]
+				}));
+			} else {
+				console.log('else 2 id TIDak sama!!')
 
 				this.setState((prev) => ({
 					cart: [...prev.cart, cart]
