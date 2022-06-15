@@ -58,11 +58,15 @@
       "username": "Budi",
       "password": "123",
       "type": "VIP"
+    },
+    {
+      "id": 2,
+      "username": "Budi",
+      "password": "1234",
+      "type": "VIP"
     }
   ],
-  "Transaction": [
-   
-  ],
+  "Transaction": [],
   "Summary": {
     "totalTransaction": 5,
     "bestSellingItem": "square hat",

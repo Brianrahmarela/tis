@@ -152,6 +152,18 @@ export default class Dashboard extends Component {
 			}
 			 console.log('idsame', idSame)
 			if(idSame === cart.noid){
+				console.log('else 2 id sama!! & length > 1')
+
+				let cartStateIdNotSame = this.state.cart.filter(
+					(item, index) =>
+					item.noid !== cart.noid
+				);
+				console.log('cartStateIdNotSame', cartStateIdNotSame)
+
+				this.setState((prev) => ({
+					cart: [...cartStateIdNotSame, cart]
+				}));
+			} else if(idSame === cart.noid){
 				console.log('else 2 id sama!!')
 				carStatetId = cart
 

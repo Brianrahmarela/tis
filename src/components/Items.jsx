@@ -61,7 +61,7 @@ const Items = ({ item, addCart }) => {
 				{/* <Card.Img variant="top" src={item.image} /> */}
 				<Card.Body>
 					<Card.Title>
-						<strong>{item.name}</strong>
+						{/* <strong>{item.name}</strong> */}
 					</Card.Title>
 					<Card.Text>{item.description}</Card.Text>
 					{data.type === "VIP"
