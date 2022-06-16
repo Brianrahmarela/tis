@@ -33,17 +33,42 @@ export default class Dashboard extends Component {
 	}
 	componentDidUpdate() {
 		console.log("komponen UPDATE JLN");
-		// if (this.state.cart.length === 1 && this.state.cart[0].qty === 1) {
-		// 	console.log(
-		// 		"komponen did update jalan msk if!!",
-		// 		this.state.cart.length === 1
-		// 	);
+		console.log(this.state.cart.length)
+		console.log('this.state.cart.length === 1', this.state.cart.length === 1)
+		console.log(' this.state.cart[0].qty === 1',  this.state.cart)
+		// console.log(' this.state.cart[0].qty === 1',  this.state.cart[0].qty)
+		let qtyCheck = 0;
+			for (let x in this.state.cart) {
+			qtyCheck += this.state.cart[x].qty;
+			}
+			 console.log('qtyCheck', qtyCheck)
+			console.log('awal', this.state.cart.length === 1)
+			console.log('qtyCheck === 0', this.state.cart.length === 0)
+		if (this.state.cart.length === 1 & qtyCheck === 2) {
+		console.log(
+			"komponen did update jalan msk if!!",
+			this.state.cart.length === 1
+		);
 
-		// 	this.postCart(this.state.cart[0].item.name);
-		// } else {
-		// 	console.log("komponen did update jalan msk else!!");
-		// 	this.updateCart();
-		// }
+			this.updateCart();
+		} else if (this.state.cart.length === 1) {
+			console.log(
+				"komponen did update jalan msk if!!",
+				this.state.cart.length === 1
+			);
+
+			this.postCart(this.state.cart[0].item.name);
+		}  else if (this.state.cart.length === 1 & qtyCheck === 1) {
+			console.log(
+				"komponen did update jalan msk else if!!",
+				this.state.cart.length === 1 & qtyCheck === 0
+			);
+
+			this.updateCart();
+		} else {
+			console.log("komponen did update jalan msk else!!");
+			this.updateCart();
+		}
 	}
 
 	addCart = (value, price, qty, setQty) => {
@@ -119,7 +144,14 @@ export default class Dashboard extends Component {
 			idSame += carStatetId[x].noid;
 			}
 			 console.log('idsame', idSame)
-			if(idSame === cart.noid){
+			if(idSame === cart.noid && cart.qty === 2){
+				console.log('id sama, cart.qty === 2!!', cart.qty === 2)
+				carStatetId = cart
+				console.log("item carStatetIddd", carStatetId);
+				this.setState((prev) => ({
+					cart: [carStatetId]
+				}));
+			} else if(idSame === cart.noid){
 				console.log('id sama!!')
 
 				this.setState((prev) => ({
@@ -133,6 +165,8 @@ export default class Dashboard extends Component {
 				}));
 
 			}
+			// this.updateCart();
+
 
 		} else if (this.state.cart.length > 1) {
 			console.log("msk length > 1");
@@ -178,6 +212,7 @@ export default class Dashboard extends Component {
 				}));
 
 			}
+			// this.updateCart();
 
 		}
 
@@ -301,36 +336,38 @@ export default class Dashboard extends Component {
 	postCart = (name) => {
 		console.log("msk postCart, statenya:", this.state.cart);
 		console.log("tes des", ...this.state.cart);
-		let payload = [...this.state.cart];
+		// let payload = [...this.state.cart];
 
-		console.log("payload", payload);
-		// axios
-		// 	.post(`${API_URL}/Transaction`, ...this.state.cart)
-		// 	.then((res) => {
-		// 		console.log("res", res);
-		// 		if (res.status === 201) {
-		// 			swal({
-		// 				title: "Sukses Masuk Keranjang!",
-		// 				text: `Produk ${name} sukses Masuk Keranjang`,
-		// 				icon: "success",
-		// 				button: false
-		// 			});
-		// 		}
-		// 		const items = res.data;
-		// 		this.setState(() => ({
-		// 			cekTrans: items,
-		// 			isLoading: false
-		// 		}));
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	});
+		// console.log("payload", payload);
+
+		
+		axios
+			.post(`${API_URL}/Transaction`, ...this.state.cart)
+			.then((res) => {
+				console.log("res", res);
+				if (res.status === 201) {
+					swal({
+						title: "Sukses Masuk Keranjang!",
+						text: `Produk ${name} sukses Masuk Keranjang`,
+						icon: "success",
+						button: false
+					});
+				}
+				const items = res.data;
+				// this.setState(() => ({
+				// 	cekTrans: items,
+				// 	isLoading: false
+				// }));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	updateCart = () => {
-		console.log("msk updateCart, state idnya:", this.state.cart);
-		console.log(" state idnya:", this.state);
-		console.log("state cek trans res", this.state.cekTrans);
+		console.log("state dashboard:", this.state);
+		console.log("msk updateCart, state cart:", this.state.cart);
+		// console.log("state cek trans res", this.state.cekTrans);
 		// if (this.state.cart.length === 0) {
 		// 	console.log("kosong");
 		// } else {
