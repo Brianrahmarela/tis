@@ -6,7 +6,7 @@ const Cart = (props) => {
 	// console.log("props cart", props);
 	return (
 		<div className="mt-3">
-			<Container fluid>
+			{/* <Container fluid>
 				<Row>
 					<Col>
 						<h4>
@@ -39,7 +39,7 @@ const Cart = (props) => {
 						)}
 					</Col>
 				</Row>
-			</Container>
+			</Container> */}
 		</div>
 	);
 };

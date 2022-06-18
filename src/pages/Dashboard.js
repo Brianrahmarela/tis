@@ -14,8 +14,9 @@ export default class Dashboard extends Component {
 			isLoading: true,
 			cart: [],
 			isLogin: false,
-			cekTrans: []
+			// cekTrans: 0
 		};
+		this.cekTrans = 0;
 	}
 
 	componentDidMount() {
@@ -44,21 +45,28 @@ export default class Dashboard extends Component {
 			 console.log('qtyCheck', qtyCheck)
 			console.log('awal', this.state.cart.length === 1)
 			console.log('qtyCheck === 0', this.state.cart.length === 0)
-		if (this.state.cart.length === 1 & qtyCheck === 2) {
+		if (this.state.cart.length === 1 & qtyCheck >= 2) {
 		console.log(
 			"komponen did update jalan msk if!!",
 			this.state.cart.length === 1
 		);
 
 			this.updateCart();
+		} else if (this.state.cart.length === 1 && this.cekTrans === this.state.cart.noid) {
+			console.log(
+				"komponen did update jalan msk else if!!",
+				this.state.cart.length === 1
+			);
+
+			this.updateCart();
 		} else if (this.state.cart.length === 1) {
 			console.log(
-				"komponen did update jalan msk if!!",
+				"komponen did update jalan msk else if!!",
 				this.state.cart.length === 1
 			);
 
 			this.postCart(this.state.cart[0].item.name);
-		}  else if (this.state.cart.length === 1 & qtyCheck === 1) {
+		} else if (this.state.cart.length === 1 & qtyCheck === 1) {
 			console.log(
 				"komponen did update jalan msk else if!!",
 				this.state.cart.length === 1 & qtyCheck === 0
@@ -127,6 +135,20 @@ export default class Dashboard extends Component {
 				cart: [cart]
 			}));
 			// this.postCart();
+		} else if (this.state.cart.length === 1 & this.cekTrans === 1) {
+			console.log("msk length === 1 & this.cekTrans === 2");
+			let carStatetId = this.state.cart.filter(
+				(item, index) =>
+					// console.log("item.noid", item.noid)
+					item.noid === cart.noid
+			);
+			// carStatetId.push(cart);
+			console.log("item carStatetId", carStatetId);
+			this.setState((prev) => ({
+				cart: [cart]
+			}));
+
+
 		} else if (this.state.cart.length === 1) {
 			console.log("msk arr sudah terisi");
 			let carStatetId = this.state.cart.filter(
@@ -144,15 +166,15 @@ export default class Dashboard extends Component {
 			idSame += carStatetId[x].noid;
 			}
 			 console.log('idsame', idSame)
-			if(idSame === cart.noid && cart.qty === 2){
+			if(idSame === cart.noid && cart.qty >= 2){
 				console.log('id sama, cart.qty === 2!!', cart.qty === 2)
 				carStatetId = cart
 				console.log("item carStatetIddd", carStatetId);
 				this.setState((prev) => ({
 					cart: [carStatetId]
 				}));
-			} else if(idSame === cart.noid){
-				console.log('id sama!!')
+			} else if(idSame === cart.noid && cart.qty === 1){
+				console.log('id sama!! idSame === cart.noid && cart.qty === 1')
 
 				this.setState((prev) => ({
 					cart: [cart]
@@ -353,7 +375,9 @@ export default class Dashboard extends Component {
 						button: false
 					});
 				}
-				const items = res.data;
+				const items = res.data.id;
+				this.cekTrans = items
+				console.log('items', items)
 				// this.setState(() => ({
 				// 	cekTrans: items,
 				// 	isLoading: false
@@ -368,29 +392,32 @@ export default class Dashboard extends Component {
 		console.log("state dashboard:", this.state);
 		console.log("msk updateCart, state cart:", this.state.cart);
 		// console.log("state cek trans res", this.state.cekTrans);
-		// if (this.state.cart.length === 0) {
-		// 	console.log("kosong");
-		// } else {
-		// 	let checkId = this.state.cart.find(
-		// 		(item) => item.id === this.state.cekTrans.id
-		// 	);
-		// 	let id = checkId.id;
-		// 	console.log("id", id);
-		// 	console.log("checkid", checkId);
-		// 	axios
-		// 		.put(`${API_URL}/Transaction/${id}`, checkId)
-		// 		.then((res) => {
-		// 			console.log("res update", res);
-		// 			// const items = res.data;
-		// 			// this.setState(() => ({
-		// 			// 	cekTrans: items,
-		// 			// 	isLoading: false
-		// 			// }));
-		// 		})
-		// 		.catch((error) => {
-		// 			console.log(error);
-		// 		});
-		// }
+		if (this.state.cart.length === 0) {
+			console.log("kosong");
+		} else {
+			let checkId = this.state.cart.find(
+				(item) => item.id === this.cekTrans.noid
+			);
+			let id = checkId.noid;
+			console.log("id", id);
+			console.log("checkid", checkId);
+			axios
+				.put(`${API_URL}/Transaction/${id}`, checkId)
+				.then((res) => {
+					console.log("res update", res);
+					// const items = res.data.id;
+					// this.cekTrans = items
+					// console.log('items', items)
+
+					// this.setState(() => ({
+					// 	cekTrans: items,
+					// 	isLoading: false
+					// }));
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 
 		// let id = 0;
 		// checkId.forEach((element) => {
@@ -429,6 +456,8 @@ export default class Dashboard extends Component {
 		const { items, isLoading } = this.state;
 		console.log("render state cart", this.state.cart);
 		console.log("STATE DASHBOARD", this.state);
+		console.log('this.cekTrans', this.cekTrans)
+
 		return (
 			<div className="mt-3">
 				<Container fluid>
