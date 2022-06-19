@@ -13,7 +13,7 @@ export default class Dashboard extends Component {
 			items: [],
 			isLoading: true,
 			cart: [],
-			isLogin: false,
+			isLogin: false
 			// cekTrans: 0
 		};
 		this.cekTrans = 0;
@@ -34,42 +34,63 @@ export default class Dashboard extends Component {
 	}
 	componentDidUpdate() {
 		console.log("komponen UPDATE JLN");
-		console.log(this.state.cart.length)
-		console.log('this.state.cart.length === 1', this.state.cart.length === 1)
-		console.log(' this.state.cart[0].qty === 1',  this.state.cart)
+		console.log(this.state.cart.length);
+		console.log("this.state.cart.length === 1", this.state.cart.length === 1);
+		console.log(" this.state.cart[0].qty === 1", this.state.cart);
 		// console.log(' this.state.cart[0].qty === 1',  this.state.cart[0].qty)
 		let qtyCheck = 0;
-			for (let x in this.state.cart) {
+		for (let x in this.state.cart) {
 			qtyCheck += this.state.cart[x].qty;
-			}
-			 console.log('qtyCheck', qtyCheck)
-			console.log('awal', this.state.cart.length === 1)
-			console.log('qtyCheck === 0', this.state.cart.length === 0)
-		if (this.state.cart.length === 1 & qtyCheck >= 2) {
+		}
+		console.log("qtyCheck", qtyCheck);
+		console.log("awal", this.state.cart.length === 1);
+		console.log("qtyCheck === 0", this.state.cart.length === 0);
+		console.log("this.cekTrans", this.cekTrans);
+		console.log("this.state.cart", this.state.cart);
+		console.log("this.state.cart.noid", this.state.cart.noid);
 		console.log(
-			"komponen did update jalan msk if!!",
-			this.state.cart.length === 1
+			this.state.cart.length === 1 && this.cekTrans === this.state.cart.noid
 		);
+		let carStatetId = this.state.cart.filter(
+			(item, index) =>
+				// console.log("item.noid", item.noid)
+				item.noid === this.cekTrans
+		);
+		// carStatetId.push(cart);
+		console.log("komponen did update: ");
+		console.log("item carStatetId", carStatetId);
 
-			this.updateCart();
-		} else if (this.state.cart.length === 1 && this.cekTrans === this.state.cart.noid) {
+		let idSame = 0;
+		for (let x in carStatetId) {
+			idSame += carStatetId[x].noid;
+		}
+		console.log("idSame", idSame);
+
+		if (this.state.cart.length === 1 && qtyCheck >= 2) {
 			console.log(
-				"komponen did update jalan msk else if!!",
+				"komponen did update jalan msk if!!",
 				this.state.cart.length === 1
 			);
 
 			this.updateCart();
-		} else if (this.state.cart.length === 1) {
+		} else if (this.state.cart.length === 1 && this.cekTrans === 0) {
 			console.log(
 				"komponen did update jalan msk else if!!",
 				this.state.cart.length === 1
 			);
 
 			this.postCart(this.state.cart[0].item.name);
-		} else if (this.state.cart.length === 1 & qtyCheck === 1) {
+		} else if (this.state.cart.length === 1 && this.cekTrans === idSame) {
 			console.log(
 				"komponen did update jalan msk else if!!",
-				this.state.cart.length === 1 & qtyCheck === 0
+				this.state.cart.length === 1
+			);
+
+			this.updateCart();
+		} else if ((this.state.cart.length === 1) & (qtyCheck === 1)) {
+			console.log(
+				"komponen did update jalan msk else if!!",
+				(this.state.cart.length === 1) & (qtyCheck === 0)
 			);
 
 			this.updateCart();
@@ -135,7 +156,7 @@ export default class Dashboard extends Component {
 				cart: [cart]
 			}));
 			// this.postCart();
-		} else if (this.state.cart.length === 1 & this.cekTrans === 1) {
+		} else if ((this.state.cart.length === 1) & (this.cekTrans === 1)) {
 			console.log("msk length === 1 & this.cekTrans === 2");
 			let carStatetId = this.state.cart.filter(
 				(item, index) =>
@@ -147,8 +168,6 @@ export default class Dashboard extends Component {
 			this.setState((prev) => ({
 				cart: [cart]
 			}));
-
-
 		} else if (this.state.cart.length === 1) {
 			console.log("msk arr sudah terisi");
 			let carStatetId = this.state.cart.filter(
@@ -159,37 +178,34 @@ export default class Dashboard extends Component {
 			// carStatetId.push(cart);
 			console.log("item carStatetId", carStatetId);
 			console.log("item carStatetId", carStatetId.id);
-			console.log('cart.noid', cart.noid)
+			console.log("cart.noid", cart.noid);
 
 			let idSame = 0;
 			for (let x in carStatetId) {
-			idSame += carStatetId[x].noid;
+				idSame += carStatetId[x].noid;
 			}
-			 console.log('idsame', idSame)
-			if(idSame === cart.noid && cart.qty >= 2){
-				console.log('id sama, cart.qty === 2!!', cart.qty === 2)
-				carStatetId = cart
+			console.log("idsame", idSame);
+			if (idSame === cart.noid && cart.qty >= 2) {
+				console.log("id sama, cart.qty === 2!!", cart.qty === 2);
+				carStatetId = cart;
 				console.log("item carStatetIddd", carStatetId);
 				this.setState((prev) => ({
 					cart: [carStatetId]
 				}));
-			} else if(idSame === cart.noid && cart.qty === 1){
-				console.log('id sama!! idSame === cart.noid && cart.qty === 1')
+			} else if (idSame === cart.noid && cart.qty === 1) {
+				console.log("id sama!! idSame === cart.noid && cart.qty === 1");
 
 				this.setState((prev) => ({
 					cart: [cart]
 				}));
 			} else {
-				console.log('id TIDak sama!!')
+				console.log("id TIDak sama!!");
 
 				this.setState((prev) => ({
 					cart: [...prev.cart, cart]
 				}));
-
 			}
 			// this.updateCart();
-
-
 		} else if (this.state.cart.length > 1) {
 			console.log("msk length > 1");
 			let carStatetId = this.state.cart.filter(
@@ -200,42 +216,39 @@ export default class Dashboard extends Component {
 			// carStatetId.push(cart);
 			console.log("item carStatetId", carStatetId);
 			console.log("item carStatetId", carStatetId.id);
-			console.log('cart.noid', cart.noid)
+			console.log("cart.noid", cart.noid);
 
 			let idSame = 0;
 			for (let x in carStatetId) {
-			idSame += carStatetId[x].noid;
+				idSame += carStatetId[x].noid;
 			}
-			 console.log('idsame', idSame)
-			if(idSame === cart.noid){
-				console.log('else 2 id sama!! & length > 1')
+			console.log("idsame", idSame);
+			if (idSame === cart.noid) {
+				console.log("else 2 id sama!! & length > 1");
 
 				let cartStateIdNotSame = this.state.cart.filter(
-					(item, index) =>
-					item.noid !== cart.noid
+					(item, index) => item.noid !== cart.noid
 				);
-				console.log('cartStateIdNotSame', cartStateIdNotSame)
+				console.log("cartStateIdNotSame", cartStateIdNotSame);
 
 				this.setState((prev) => ({
 					cart: [...cartStateIdNotSame, cart]
 				}));
-			} else if(idSame === cart.noid){
-				console.log('else 2 id sama!!')
-				carStatetId = cart
+			} else if (idSame === cart.noid) {
+				console.log("else 2 id sama!!");
+				carStatetId = cart;
 
 				this.setState((prev) => ({
 					cart: [...prev.cart, carStatetId]
 				}));
 			} else {
-				console.log('else 2 id TIDak sama!!')
+				console.log("else 2 id TIDak sama!!");
 
 				this.setState((prev) => ({
 					cart: [...prev.cart, cart]
 				}));
-
 			}
 			// this.updateCart();
-
 		}
 
 		// console.log("this.state.cart.qty ", this.state.cart);
@@ -362,7 +375,6 @@ export default class Dashboard extends Component {
 
 		// console.log("payload", payload);
 
-		
 		axios
 			.post(`${API_URL}/Transaction`, ...this.state.cart)
 			.then((res) => {
@@ -376,8 +388,8 @@ export default class Dashboard extends Component {
 					});
 				}
 				const items = res.data.id;
-				this.cekTrans = items
-				console.log('items', items)
+				this.cekTrans = items;
+				console.log("items", items);
 				// this.setState(() => ({
 				// 	cekTrans: items,
 				// 	isLoading: false
@@ -394,6 +406,8 @@ export default class Dashboard extends Component {
 		// console.log("state cek trans res", this.state.cekTrans);
 		if (this.state.cart.length === 0) {
 			console.log("kosong");
+		} else if (this.cekTrans === 0) {
+			this.postCart();
 		} else {
 			let checkId = this.state.cart.find(
 				(item) => item.id === this.cekTrans.noid
@@ -456,7 +470,7 @@ export default class Dashboard extends Component {
 		const { items, isLoading } = this.state;
 		console.log("render state cart", this.state.cart);
 		console.log("STATE DASHBOARD", this.state);
-		console.log('this.cekTrans', this.cekTrans)
+		console.log("this.cekTrans", this.cekTrans);
 
 		return (
 			<div className="mt-3">
