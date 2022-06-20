@@ -90,7 +90,14 @@ export default class Dashboard extends Component {
       );
 
       this.updateCart();
-    } else {
+    } else if ((this.state.cart.length === 2) & (qtyCheck !== 0)) {
+		console.log(
+		  "did update jalan msk else if state.cart.length === 2 & qtyCheck !== 0!!",
+		  (this.state.cart.length === 2) & (qtyCheck !== 0)
+		);
+  
+		this.updateCart();
+	} else {
       console.log("did update jalan msk else!!");
       this.updateCart();
     }
@@ -142,7 +149,7 @@ export default class Dashboard extends Component {
     };
     console.log("cart", cart);
     console.log('this.idRes', this.idRes)
-    console.log('this.idRes', this.idRes)
+    console.log('this.noId', this.noId)
 
     if (this.state.cart.length === 0) {
       // console.log("this.state.cart.length === 0", this.state.cart.length === 0);
@@ -153,16 +160,26 @@ export default class Dashboard extends Component {
       // this.postCart();
     } else if ((this.state.cart.length === 1) && (this.idRes !== 0)) {
       console.log("msk length === 1 & this.idRes !== 0");
-      let carStatetId = this.state.cart.filter(
-        (item, index) =>
-          // console.log("item.noid", item.noid)
-          item.noid === cart.noid
-      );
-      // carStatetId.push(cart);
-      console.log("item carStatetId", carStatetId);
-      this.setState((prev) => ({
-        cart: [cart],
-      }));
+	  if(cart.noid !== this.noId){
+		this.setState((prev) => ({
+			cart: [...prev.cart, cart],
+		  }));
+
+
+
+	  } else {
+
+		  let carStatetId = this.state.cart.filter(
+			(item, index) =>
+			  // console.log("item.noid", item.noid)
+			  item.noid === cart.noid
+		  );
+		  // carStatetId.push(cart);
+		  console.log("item carStatetId", carStatetId);
+		  this.setState((prev) => ({
+			cart: [cart],
+		  }));
+	  }
     } else if (this.state.cart.length === 1) {
       console.log("msk arr sudah terisi");
       let carStatetId = this.state.cart.filter(
@@ -422,11 +439,22 @@ export default class Dashboard extends Component {
       console.log("id", id);
       console.log("checkid", checkId);
 	  console.log("this.idRes", this.idRes);
+	  console.log('this.state.cart === 2', this.state.cart.length === 2 )
+	  console.log('this.state.cart', this.state.cart)
+	  console.log('...this.state.cart', ...this.state.cart)
+		
+	  let payload = {}
+	  if(this.state.cart.length === 2){
+		payload = this.state.cart
+	} else {
+		payload += checkId
+	  }
+	  console.log('payload', payload)
 
-      axios
-        .put(`${API_URL}/Transaction/${id}`, checkId)
-        .then((res) => {
-          console.log("res update", res);
+    //   axios
+    //     .put(`${API_URL}/Transaction/${id}`,payload)
+    //     .then((res) => {
+    //       console.log("res update", res);
           // const items = res.data.id;
           // this.idRes = items
           // console.log('items', items)
@@ -435,10 +463,10 @@ export default class Dashboard extends Component {
           // 	idRes: items,
           // 	isLoading: false
           // }));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
     }
 
     // let id = 0;
