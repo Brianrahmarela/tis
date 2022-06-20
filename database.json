@@ -62,28 +62,32 @@
   ],
   "Transaction": [
     {
-      "noid": 1,
+      "noid": 2,
       "item": {
-        "noid": 1,
-        "name": "oval hat",
+        "noid": 2,
+        "name": "square hat",
         "type": "hats",
-        "image": "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?ixlib=rb-1.2.1&ixnoid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
+        "image": "https://img.ltwebstatic.com/images3_pi/2021/05/14/16209738544cf254cfc044757d9573373c290875a4.webp",
         "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "prices": [
           {
             "priceFor": "regular",
-            "price": 20000
+            "price": 30000
           },
           {
             "priceFor": "VIP",
+            "price": 20000
+          },
+          {
+            "priceFor": "wholesale",
             "price": 15000
           }
         ]
       },
       "qty": 1,
       "buyer": "Budi",
-      "price_account": 15000,
-      "totalPrice": 15000,
+      "price_account": 20000,
+      "totalPrice": 20000,
       "id": 1
     }
   ],
