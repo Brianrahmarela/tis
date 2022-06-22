@@ -4,6 +4,7 @@ import { Row, Col, Container, Spinner } from "react-bootstrap";
 import { API_URL } from "../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
+import { Prev } from "react-bootstrap/esm/PageItem";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -34,18 +35,18 @@ export default class Dashboard extends Component {
   }
   componentDidUpdate() {
     console.log("komponen UPDATE JLN");
-    console.log('state.cart.length', this.state.cart.length);
+    console.log("state.cart.length", this.state.cart.length);
     // console.log("this.state.cart.length === 1", this.state.cart.length === 1);
     // console.log(' this.state.cart[0].qty === 1',  this.state.cart[0].qty)
     let qtyCheck = 0;
     for (let x in this.state.cart) {
       qtyCheck += this.state.cart[x].qty;
     }
-    console.log("qtyCheck", qtyCheck);
+    // console.log("qtyCheck", qtyCheck);
     // console.log("awal", this.state.cart.length === 1);
     // console.log("qtyCheck === 0", this.state.cart.length === 0);
-    console.log("this.idRes", this.idRes);
-    console.log("this.state.cart", this.state.cart);
+    // console.log("this.idRes", this.idRes);
+    // console.log("this.state.cart", this.state.cart);
 
     let carStatetId = this.state.cart.filter(
       (item, index) =>
@@ -60,7 +61,7 @@ export default class Dashboard extends Component {
     for (let x in carStatetId) {
       idSame += carStatetId[x].noid;
     }
-    console.log("idSame", idSame);
+    // console.log("idSame", idSame);
 
     if (this.state.cart.length === 1 && qtyCheck >= 2) {
       console.log(
@@ -76,7 +77,10 @@ export default class Dashboard extends Component {
       );
 
       this.postCart(this.state.cart[0].item.name);
-    } else if ((this.state.cart.length === 1 || this.state.cart.length === 0) && this.idRes === idSame) {
+    } else if (
+      (this.state.cart.length === 1 || this.state.cart.length === 0) &&
+      this.idRes === idSame
+    ) {
       console.log(
         "did update jalan msk else if, cart length === 1 or 0 && this.idRes === idSame!!",
         this.state.cart.length === 1
@@ -91,13 +95,13 @@ export default class Dashboard extends Component {
 
       this.updateCart();
     } else if ((this.state.cart.length === 2) & (qtyCheck !== 0)) {
-		console.log(
-		  "did update jalan msk else if state.cart.length === 2 & qtyCheck !== 0!!",
-		  (this.state.cart.length === 2) & (qtyCheck !== 0)
-		);
-  
-		this.updateCart();
-	} else {
+      console.log(
+        "did update jalan msk else if state.cart.length === 2 & qtyCheck !== 0!!",
+        (this.state.cart.length === 2) & (qtyCheck !== 0)
+      );
+
+      this.updateCart();
+    } else {
       console.log("did update jalan msk else!!");
       this.updateCart();
     }
@@ -148,8 +152,8 @@ export default class Dashboard extends Component {
       totalPrice: cart.price_account * cart.qty,
     };
     console.log("cart", cart);
-    console.log('this.idRes', this.idRes)
-    console.log('this.noId', this.noId)
+    console.log("this.idRes", this.idRes);
+    console.log("this.noId", this.noId);
 
     if (this.state.cart.length === 0) {
       // console.log("this.state.cart.length === 0", this.state.cart.length === 0);
@@ -158,28 +162,24 @@ export default class Dashboard extends Component {
         cart: [cart],
       }));
       // this.postCart();
-    } else if ((this.state.cart.length === 1) && (this.idRes !== 0)) {
+    } else if (this.state.cart.length === 1 && this.idRes !== 0) {
       console.log("msk length === 1 & this.idRes !== 0");
-	  if(cart.noid !== this.noId){
-		this.setState((prev) => ({
-			cart: [...prev.cart, cart],
-		  }));
-
-
-
-	  } else {
-
-		  let carStatetId = this.state.cart.filter(
-			(item, index) =>
-			  // console.log("item.noid", item.noid)
-			  item.noid === cart.noid
-		  );
-		  // carStatetId.push(cart);
-		  console.log("item carStatetId", carStatetId);
-		  this.setState((prev) => ({
-			cart: [cart],
-		  }));
-	  }
+      if (cart.noid !== this.noId) {
+        this.setState((prev) => ({
+          cart: [...prev.cart, cart],
+        }));
+      } else {
+        let carStatetId = this.state.cart.filter(
+          (item, index) =>
+            // console.log("item.noid", item.noid)
+            item.noid === cart.noid
+        );
+        // carStatetId.push(cart);
+        console.log("item carStatetId", carStatetId);
+        this.setState((prev) => ({
+          cart: [cart],
+        }));
+      }
     } else if (this.state.cart.length === 1) {
       console.log("msk arr sudah terisi");
       let carStatetId = this.state.cart.filter(
@@ -402,9 +402,9 @@ export default class Dashboard extends Component {
         const idRes = res.data.id;
         this.idRes = idRes;
         console.log("idRes", idRes);
-		
-		const noIdRes = res.data.noid;
-		this.noId = noIdRes;
+
+        const noIdRes = res.data.noid;
+        this.noId = noIdRes;
         console.log("noIdRes", noIdRes);
         // this.setState(() => ({
         // 	idRes: items,
@@ -427,46 +427,122 @@ export default class Dashboard extends Component {
 
     if (this.state.cart.length === 0) {
       console.log("kosong");
+      // console.log("payload", this.payload)
     } else if (this.idRes === 0) {
       this.postCart();
     } else if (qtyCheck === 0) {
       this.deleteCart();
     } else {
-      let checkId = this.state.cart.find(
-        (item) => item.id === this.idRes.noid
-      );
+      let checkId = this.state.cart.find((item) => item.id === this.idRes.noid);
       let id = this.idRes;
       console.log("id", id);
       console.log("checkid", checkId);
-	  console.log("this.idRes", this.idRes);
-	  console.log('this.state.cart === 2', this.state.cart.length === 2 )
-	  console.log('this.state.cart', this.state.cart)
-	  console.log('...this.state.cart', ...this.state.cart)
-		
-	  let payload = {}
-	  if(this.state.cart.length === 2){
-		payload = this.state.cart
-	} else {
-		payload += checkId
-	  }
-	  console.log('payload', payload)
+      console.log("this.idRes", this.idRes);
+      console.log("this.state.cart === 2", this.state.cart.length === 2);
+      console.log("this.state.cart", this.state.cart);
+      console.log("...this.state.cart", ...this.state.cart);
+      console.log("this.state.cart.id", this.state.cart.id);
 
-    //   axios
-    //     .put(`${API_URL}/Transaction/${id}`,payload)
-    //     .then((res) => {
-    //       console.log("res update", res);
-          // const items = res.data.id;
-          // this.idRes = items
-          // console.log('items', items)
+      let payload = [];
+      let checkIds = null;
+      if (this.state.cart.length === 2) {
+        console.log(
+          "msk if this.state.cart.length === 2",
+          this.state.cart.length === 2
+        );
+        payload = this.state.cart;
 
-          // this.setState(() => ({
-          // 	idRes: items,
-          // 	isLoading: false
-          // }));
-        // })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
+        axios
+          .delete(`${API_URL}/Transaction/${id}`, checkId)
+          .then((res) => {
+            console.log("res delete", res);
+            const items = res.data;
+            console.log("items", items);
+            this.setState((prev) => ({
+              cart: [],
+              isLoading: false,
+            }));
+            this.idRes = 0;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        console.log("DELETE BEFORE UPDATE");
+        console.log("payload", payload);
+
+        // let objDestruc = payload
+        payload.forEach((item) => {
+          let data = [];
+          axios
+            .post(`${API_URL}/Transaction`, item)
+            .then((res) => {
+              console.log("res post update post", res);
+              // console.log("res.data", res.data);
+              let arrData = [];
+              let resData = res.data;
+
+              arrData.push(resData);
+              console.log("resData", resData);
+              console.log("arrData", arrData);
+
+              if (resData.id !== undefined){
+                console.log('msk if resData.id !== undefined', resData.id !== undefined)
+                console.log('resData.id', resData.id)
+
+                this.setState((prev) => ({
+                  cart: [...prev.cart, res.data],
+                }))
+              }else {
+                console.log('msk else resData.id undefined', resData.id)
+                console.log('resData.id', resData.id)
+                this.setState((prev) => ({
+                  cart: [res.data],
+                }))
+
+              }
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          console.log("item", item);
+
+          // axios
+          // .get(`${API_URL}/Transaction`)
+          // .then((res) => {
+          //   console.log("res get after delete update", res);
+
+          //   const items = res.data;
+          //   // this.setState((prev) => ({
+          //   //   cart: [...items],
+          //   // }));
+          // })
+          // .catch((error) => {
+          //   console.log(error);
+          // });
+        });
+
+        console.log("payload before post update", payload);
+      } else {
+        console.log("msk else checkIds", checkIds);
+        checkIds = checkId;
+
+        axios
+          .put(`${API_URL}/Transaction/${id}`, checkIds)
+          .then((res) => {
+            console.log("res update", res);
+            const items = res.data.id;
+            this.idRes = items;
+            console.log("items", items);
+
+            this.idRes = items;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      console.log("checkId", checkIds);
     }
 
     // let id = 0;
@@ -503,25 +579,23 @@ export default class Dashboard extends Component {
   };
 
   deleteCart = () => {
-	let checkId = this.state.cart.find(
-		(item) => item.id === this.idRes.noid
-	);
-	let id = this.idRes;
-	console.log('msk delete cart :')
-	console.log("id", id);
-	console.log("checkid", checkId);
+    let checkId = this.state.cart.find((item) => item.id === this.idRes.noid);
+    let id = this.idRes;
+    console.log("msk delete cart :");
+    console.log("id", id);
+    console.log("checkid", checkId);
 
     axios
       .delete(`${API_URL}/Transaction/${id}`, checkId)
       .then((res) => {
         console.log("res delete", res);
         const items = res.data;
-        console.log('items', items)
-		this.setState((prev) => ({
-			cart: [],
-        	isLoading: false
-		  }));
-		  this.idRes = 0;
+        console.log("items", items);
+        this.setState((prev) => ({
+          cart: [],
+          isLoading: false,
+        }));
+        this.idRes = 0;
       })
       .catch((error) => {
         console.log(error);
@@ -530,10 +604,10 @@ export default class Dashboard extends Component {
 
   render() {
     const { items, isLoading } = this.state;
-    console.log("render state cart", this.state.cart);
+    // console.log("render state cart", this.state.cart);
     console.log("STATE DASHBOARD", this.state);
-    console.log("state this.idRes", this.idRes);
-    console.log("state this.noid", this.noId);
+    // console.log("state this.idRes", this.idRes);
+    // console.log("state this.noid", this.noId);
 
     return (
       <div className="mt-3">

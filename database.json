@@ -84,7 +84,36 @@
       "buyer": "Budi",
       "price_account": 15000,
       "totalPrice": 15000,
-      "id": 1
+      "id": 2
+    },
+    {
+      "noid": 2,
+      "item": {
+        "noid": 2,
+        "name": "square hat",
+        "type": "hats",
+        "image": "https://img.ltwebstatic.com/images3_pi/2021/05/14/16209738544cf254cfc044757d9573373c290875a4.webp",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "prices": [
+          {
+            "priceFor": "regular",
+            "price": 30000
+          },
+          {
+            "priceFor": "VIP",
+            "price": 20000
+          },
+          {
+            "priceFor": "wholesale",
+            "price": 15000
+          }
+        ]
+      },
+      "qty": 1,
+      "buyer": "Budi",
+      "price_account": 20000,
+      "totalPrice": 20000,
+      "id": 3
     }
   ],
   "Summary": {
