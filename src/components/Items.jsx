@@ -60,9 +60,9 @@ const Items = ({ item, addCart }) => {
 			<Card className="shadow mb-4">
 				{/* <Card.Img variant="top" src={item.image} /> */}
 				<Card.Body>
-					<Card.Title>
-						{/* <strong>{item.name}</strong> */}
-					</Card.Title>
+					{/* <Card.Title>
+						<strong>{item.name}</strong>
+					</Card.Title> */}
 					<Card.Text>{item.description}</Card.Text>
 					{data.type === "VIP"
 						? filteredVIP.map((prices, index) => (
